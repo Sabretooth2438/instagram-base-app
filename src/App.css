@@ -1,38 +1,346 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+/* === Global Styles === */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body,
+html {
+  height: 100%;
+  width: 100%;
+  background-color: black;
+  color: white;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Ensure full coverage */
+.main-container {
+  width: 100%;
+  max-width: 1200px;
+  min-height: calc(100vh - 80px);
+  margin: auto;
+  padding: 50px;
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+/* === Navbar Styles === */
+.navbar {
+  width: 100%;
+  background-color: #3a2c4d;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.nav-container {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+/* Navbar Links */
+.nav-container a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1.8rem;
+  letter-spacing: 1px;
+  margin: 0 20px;
+  transition: 0.3s ease-in-out;
 }
 
-.card {
-  padding: 2em;
+.nav-container a:hover {
+  text-decoration: underline;
+}
+
+/* Logout Button */
+.logout-btn {
+  background: #f56a79;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  font-size: 1.4rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+
+.logout-btn:hover {
+  background: #d64550;
+}
+
+/* === News Feed === */
+.news-feed-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: auto;
+  padding: 50px 20px;
+  text-align: center; /* Centers text content */
+}
+
+/* Ensure h1 is centered */
+.news-feed-container h1 {
+  font-size: 3rem;
+  color: white;
+  text-align: center;
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+.post-list {
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  align-items: center; /* Center align items */
+  width: 100%;
+  max-width: 800px; /* Ensures posts don't get too wide */
+  margin: auto;
+  list-style: none;
+  padding: 0;
+}
+
+/* Post Items Styling */
+.post-item {
+  background: #222;
+  padding: 20px;
+  width: 100%;
+  max-width: 600px; /* Make sure posts are centered and not too wide */
+  border-radius: 10px;
+  font-size: 1.5rem;
+  text-align: center;
+  transition: 0.3s ease-in-out;
+  margin-bottom: 20px; /* Adds spacing between posts */
+}
+
+/* Hover effect */
+.post-item:hover {
+  background: #444;
+  transform: scale(1.05);
+}
+
+/* Post Link Styling */
+.post-link {
+  color: #00bfff;
+  font-weight: bold;
+  text-decoration: none;
+  transition: 0.3s ease-in-out;
+}
+
+.post-link:hover {
+  color: #009acd;
+}
+
+/* === POST PAGE STYLES === */
+.post-container {
+  width: 100%;
+  max-width: 800px;
+  margin: 50px auto;
+  background: #1e1e1e;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 15px rgba(255, 255, 255, 0.1);
+  text-align: center;
+}
+
+/* Post Title */
+.post-title {
+  font-size: 2.5rem;
+  color: white;
+  margin-bottom: 20px;
+}
+
+/* Post Content */
+.post-content {
+  font-size: 1.3rem;
+  color: #bbb;
+  margin-bottom: 30px;
+}
+
+/* Back Button */
+.back-button {
+  display: block;
+  width: 100%;
+  max-width: 300px;
+  margin: auto;
+  padding: 12px;
+  background: #00bfff;
+  color: white;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+
+.back-button:hover {
+  background: #009acd;
+  transform: scale(1.05);
+}
+
+/* === CHAT PAGE STYLES === */
+.chat-container {
+  width: 100%;
+  max-width: 800px;
+  margin: 50px auto;
+  background: #1e1e1e;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 15px rgba(255, 255, 255, 0.1);
+  text-align: center;
+}
+
+/* Chat Title */
+.chat-title {
+  font-size: 2.5rem;
+  color: white;
+  margin-bottom: 20px;
+}
+
+/* Chat Messages */
+.chat-messages {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  max-height: 300px;
+  overflow-y: auto;
+  background: #222;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+/* Chat Message Bubble */
+.chat-message {
+  background: #333;
+  padding: 10px;
+  border-radius: 10px;
+  max-width: 70%;
+  color: white;
+  text-align: left;
+}
+
+/* Self Message Alignment */
+.chat-message.self {
+  align-self: flex-end;
+  background: #00bfff;
+  color: black;
+}
+
+/* Sender Name */
+.chat-sender {
+  font-weight: bold;
+  font-size: 0.9rem;
+  margin-bottom: 5px;
+}
+
+/* Chat Text */
+.chat-text {
+  font-size: 1.2rem;
+}
+
+/* Chat Input Box */
+.chat-input {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.chat-input input {
+  flex: 1;
+  padding: 12px;
+  border: 1px solid #555;
+  border-radius: 5px;
+  background: black;
+  color: white;
+  font-size: 1rem;
+}
+
+.chat-input button {
+  padding: 12px;
+  background: #00bfff;
+  color: white;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+
+.chat-input button:hover {
+  background: #009acd;
+  transform: scale(1.05);
+}
+
+/* === AUTH FORM STYLES === */
+.auth-form {
+  width: 100%;
+  max-width: 400px;
+  margin: 50px auto;
+  background: #1e1e1e;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 15px rgba(255, 255, 255, 0.1);
+  text-align: center;
+}
+
+/* Auth Form Title */
+.auth-form h1 {
+  font-size: 2rem;
+  color: white;
+  margin-bottom: 20px;
+}
+
+/* Input Fields */
+.auth-form input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: 1px solid #555;
+  border-radius: 5px;
+  background: black;
+  color: white;
+  font-size: 1rem;
+}
+
+/* Submit Button */
+.auth-form button {
+  width: 100%;
+  padding: 12px;
+  background: #00bfff;
+  color: white;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+  margin-top: 10px;
+}
+
+.auth-form button:hover {
+  background: #009acd;
+  transform: scale(1.05);
+}
+
+/* Toggle Signup/Login Button */
+.auth-form p {
+  margin-top: 15px;
+  font-size: 1rem;
+  color: white;
+}
+
+.auth-form p button {
+  background: transparent;
+  border: none;
+  color: #00bfff;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: 0.3s ease-in-out;
+}
+
+.auth-form p button:hover {
+  text-decoration: underline;
 }
