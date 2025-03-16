@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom'
-import { ref, onValue, push } from 'firebase/database'
+import { ref, onValue, push, update } from 'firebase/database'
 import { database, auth } from '../firebase'
 import { useState, useEffect } from 'react'
 
 const NewsFeed = () => {
   const [posts, setPosts] = useState([])
   const [newPost, setNewPost] = useState({ title: '', content: '' })
-  const [showForm, setShowForm] = useState(false) // Toggle for form visibility
+  const [showForm, setShowForm] = useState(false)
 
   useEffect(() => {
     const postsRef = ref(database, 'posts')
@@ -28,24 +28,43 @@ const NewsFeed = () => {
     e.preventDefault()
     if (newPost.title.trim() === '' || newPost.content.trim() === '') return
 
-    const userId = auth.currentUser?.uid
+    const user = auth.currentUser
+    if (!user) return
 
     push(ref(database, 'posts'), {
       title: newPost.title,
       content: newPost.content,
+      author: user.email,
+      authorId: user.uid,
       timestamp: Date.now(),
-      userId,
+      likedBy: {},
+      comments: {},
     })
 
-    setNewPost({ title: '', content: '' }) // Clear input fields
-    setShowForm(false) // Hide form after submission
+    setNewPost({ title: '', content: '' })
+    setShowForm(false)
+  }
+
+  // ✅ Fixed Like Functionality
+  const handleLike = (postId, likedBy) => {
+    const userId = auth.currentUser?.uid
+    if (!userId) return
+
+    const updatedLikes = likedBy ? { ...likedBy } : {}
+
+    if (updatedLikes[userId]) {
+      delete updatedLikes[userId] // Unlike
+    } else {
+      updatedLikes[userId] = true // Like
+    }
+
+    update(ref(database, `posts/${postId}`), { likedBy: updatedLikes })
   }
 
   return (
     <div className="news-feed-container">
       <h1>News Feed</h1>
 
-      {/* Button to show/hide form */}
       <button
         className="toggle-post-btn"
         onClick={() => setShowForm(!showForm)}
@@ -53,9 +72,8 @@ const NewsFeed = () => {
         {showForm ? 'Cancel' : 'Create New Post'}
       </button>
 
-      {/* Post Creation Form */}
       {showForm && (
-        <form onSubmit={handleSubmit} className="post-form">
+        <form className="post-form" onSubmit={handleSubmit}>
           <input
             type="text"
             placeholder="Post Title"
@@ -75,16 +93,30 @@ const NewsFeed = () => {
         </form>
       )}
 
-      {/* Display List of Posts */}
       <ul className="post-list">
         {posts.length > 0 ? (
-          posts.map((post) => (
-            <li key={post.id} className="post-item">
-              <Link to={`/post/${post.id}`} className="post-link">
-                {post.title}
-              </Link>
-            </li>
-          ))
+          posts.map((post) => {
+            const likeCount = post.likedBy
+              ? Object.keys(post.likedBy).length
+              : 0
+            return (
+              <li key={post.id} className="post-item">
+                <Link to={`/post/${post.id}`} className="post-link">
+                  {post.title}
+                </Link>
+                <p className="post-author">by {post.author || 'Unknown'}</p>
+
+                {/* ✅ Like Button Moved Below Title */}
+                <button
+                  className="like-btn"
+                  onClick={() => handleLike(post.id, post.likedBy)}
+                >
+                  {post.likedBy?.[auth.currentUser?.uid] ? 'Unlike' : 'Like'} (
+                  {likeCount})
+                </button>
+              </li>
+            )
+          })
         ) : (
           <p className="no-posts">No posts available</p>
         )}

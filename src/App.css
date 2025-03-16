@@ -43,18 +43,33 @@ html {
 }
 
 /* Navbar Links */
-.nav-container a {
+.nav-link {
   color: white;
   text-decoration: none;
   font-weight: bold;
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   letter-spacing: 1px;
   margin: 0 20px;
   transition: 0.3s ease-in-out;
 }
 
-.nav-container a:hover {
+.nav-link:hover {
   text-decoration: underline;
+}
+
+/* User Info Section */
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.user-email {
+  font-size: 1rem;
+  color: #ddd;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 8px 12px;
+  border-radius: 8px;
 }
 
 /* Logout Button */
@@ -62,8 +77,8 @@ html {
   background: #f56a79;
   color: white;
   border: none;
-  padding: 12px 20px;
-  font-size: 1.4rem;
+  padding: 10px 15px;
+  font-size: 1rem;
   border-radius: 5px;
   cursor: pointer;
   transition: 0.3s ease-in-out;
@@ -533,4 +548,70 @@ html {
 
 .auth-form p button:hover {
   text-decoration: underline;
+}
+
+/* === Like Button === */
+.like-btn {
+  background: #00bfff;
+  color: white;
+  font-size: 1rem;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+
+.like-btn:hover {
+  background: #009acd;
+}
+
+/* === Comments Section === */
+.comments-section {
+  margin-top: 20px;
+  background: #1e1e1e;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.comments-list {
+  list-style: none;
+  padding: 0;
+}
+
+.comment {
+  background: #222;
+  padding: 10px;
+  margin: 5px 0;
+  border-radius: 5px;
+}
+
+.comment strong {
+  color: #00bfff;
+}
+
+.comments-section textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #555;
+  border-radius: 5px;
+  background: black;
+  color: white;
+  font-size: 1rem;
+  margin-top: 10px;
+}
+
+.comments-section button {
+  background: #00bfff;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 5px;
+  transition: 0.3s ease-in-out;
+}
+
+.comments-section button:hover {
+  background: #009acd;
 }

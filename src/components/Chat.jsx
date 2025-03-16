@@ -1,10 +1,19 @@
 import { useState, useEffect } from 'react'
 import { ref, push, onValue } from 'firebase/database'
-import { database } from '../firebase' // Ensure correct import path
+import { database, auth } from '../firebase' // Ensure correct import path
 
-const Chat = ({ user }) => {
+const Chat = () => {
   const [messages, setMessages] = useState([])
   const [message, setMessage] = useState('')
+  const [user, setUser] = useState(null)
+
+  useEffect(() => {
+    // Track authentication state
+    const unsubscribe = auth.onAuthStateChanged((currentUser) => {
+      setUser(currentUser)
+    })
+    return () => unsubscribe()
+  }, [])
 
   useEffect(() => {
     const messagesRef = ref(database, 'messages')
@@ -30,6 +39,10 @@ const Chat = ({ user }) => {
 
   const sendMessage = () => {
     if (message.trim() === '') return
+    if (!user) {
+      alert('You must be logged in to send messages!')
+      return
+    }
 
     push(ref(database, 'messages'), {
       text: message,
