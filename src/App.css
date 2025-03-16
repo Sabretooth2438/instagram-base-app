@@ -79,24 +79,103 @@ html {
   max-width: 1200px;
   margin: auto;
   padding: 50px 20px;
-  text-align: center; /* Centers text content */
+  text-align: center;
 }
 
 /* Ensure h1 is centered */
 .news-feed-container h1 {
   font-size: 3rem;
   color: white;
-  text-align: center;
-  width: 100%;
   margin-bottom: 30px;
 }
 
+/* === Post Creation Form === */
+.post-form {
+  background: #1e1e1e;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 600px;
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.post-form input,
+.post-form textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #555;
+  border-radius: 5px;
+  background: black;
+  color: white;
+  font-size: 1rem;
+}
+
+.post-form textarea {
+  resize: vertical;
+  height: 100px;
+}
+
+.post-form button {
+  background: #00bfff;
+  color: white;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 5px;
+  padding: 12px;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+
+.post-form button:hover {
+  background: #009acd;
+  transform: scale(1.05);
+}
+
+/* === Toggle Create Post Button === */
+.toggle-post-btn {
+  background: #00bfff;
+  color: white;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 5px;
+  padding: 12px;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+  margin-bottom: 20px;
+}
+
+.toggle-post-btn:hover {
+  background: #009acd;
+  transform: scale(1.05);
+}
+
+/* === Cancel Button (Inside Form) === */
+.cancel-btn {
+  background: #f56a79;
+  color: white;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 5px;
+  padding: 12px;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+  margin-top: 10px;
+}
+
+.cancel-btn:hover {
+  background: #d64550;
+  transform: scale(1.05);
+}
+
+/* === Post List Styling === */
 .post-list {
   display: flex;
-  flex-direction: column; /* Stack items vertically */
-  align-items: center; /* Center align items */
+  flex-direction: column;
+  align-items: center;
   width: 100%;
-  max-width: 800px; /* Ensures posts don't get too wide */
+  max-width: 800px;
   margin: auto;
   list-style: none;
   padding: 0;
@@ -107,15 +186,14 @@ html {
   background: #222;
   padding: 20px;
   width: 100%;
-  max-width: 600px; /* Make sure posts are centered and not too wide */
+  max-width: 600px;
   border-radius: 10px;
   font-size: 1.5rem;
   text-align: center;
   transition: 0.3s ease-in-out;
-  margin-bottom: 20px; /* Adds spacing between posts */
+  margin-bottom: 20px;
 }
 
-/* Hover effect */
 .post-item:hover {
   background: #444;
   transform: scale(1.05);
@@ -178,6 +256,67 @@ html {
 .back-button:hover {
   background: #009acd;
   transform: scale(1.05);
+}
+
+/* Post Actions */
+.post-actions {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.edit-btn,
+.delete-btn {
+  background: #f56a79;
+  color: white;
+  font-size: 1rem;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+
+.edit-btn:hover {
+  background: #ffcc00;
+}
+
+.delete-btn:hover {
+  background: #d64550;
+}
+
+/* === Edit Form === */
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.edit-form input,
+.edit-form textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #555;
+  border-radius: 5px;
+  background: black;
+  color: white;
+  font-size: 1rem;
+}
+
+.edit-form button {
+  background: #00bfff;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+
+.edit-form button:hover {
+  background: #009acd;
 }
 
 /* === CHAT PAGE STYLES === */
@@ -272,6 +411,57 @@ html {
 .chat-input button:hover {
   background: #009acd;
   transform: scale(1.05);
+}
+
+/* === Chat Timestamp === */
+.chat-time {
+  font-size: 0.8rem;
+  color: #bbb;
+  margin-left: 10px;
+}
+
+/* === Chat Messages Styling === */
+.chat-messages {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  max-height: 300px;
+  overflow-y: auto;
+  background: #222;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+/* Chat Message Bubble */
+.chat-message {
+  background: #333;
+  padding: 10px;
+  border-radius: 10px;
+  max-width: 70%;
+  color: white;
+  text-align: left;
+}
+
+/* Self Message Alignment */
+.chat-message.self {
+  align-self: flex-end;
+  background: #00bfff;
+  color: black;
+}
+
+/* Sender Name */
+.chat-sender {
+  font-weight: bold;
+  font-size: 0.9rem;
+  margin-bottom: 5px;
+}
+
+/* Chat Timestamp */
+.chat-time {
+  font-size: 0.8rem;
+  color: #bbb;
+  margin-left: 10px;
 }
 
 /* === AUTH FORM STYLES === */

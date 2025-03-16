@@ -8,27 +8,35 @@ const Chat = ({ user }) => {
 
   useEffect(() => {
     const messagesRef = ref(database, 'messages')
-    onValue(messagesRef, (snapshot) => {
+
+    const unsubscribe = onValue(messagesRef, (snapshot) => {
       if (snapshot.exists()) {
         const data = snapshot.val()
-        const messageArray = Object.keys(data).map((key) => ({
-          id: key,
-          ...data[key],
-        }))
+        const messageArray = Object.keys(data)
+          .map((key) => ({
+            id: key,
+            ...data[key],
+          }))
+          .sort((a, b) => a.timestamp - b.timestamp) // Ensure correct order
+
         setMessages(messageArray)
       } else {
         setMessages([])
       }
     })
+
+    return () => unsubscribe() // Cleanup listener on unmount
   }, [])
 
   const sendMessage = () => {
     if (message.trim() === '') return
+
     push(ref(database, 'messages'), {
       text: message,
       sender: user ? user.email : 'Anonymous',
       timestamp: Date.now(),
     })
+
     setMessage('')
   }
 
@@ -36,17 +44,29 @@ const Chat = ({ user }) => {
     <div className="chat-container">
       <h1 className="chat-title">Chat Room</h1>
       <div className="chat-messages">
-        {messages.map((msg) => (
-          <div
-            key={msg.id}
-            className={`chat-message ${
-              msg.sender === (user ? user.email : '') ? 'self' : ''
-            }`}
-          >
-            <p className="chat-sender">{msg.sender}</p>
-            <p className="chat-text">{msg.text}</p>
-          </div>
-        ))}
+        {messages.length > 0 ? (
+          messages.map((msg) => {
+            const formattedTime = new Date(msg.timestamp).toLocaleTimeString()
+            return (
+              <div
+                key={msg.id}
+                className={`chat-message ${
+                  msg.sender === (user ? user.email : '') ? 'self' : ''
+                }`}
+              >
+                <p className="chat-sender">
+                  {msg.sender}{' '}
+                  <span className="chat-time">{formattedTime}</span>
+                </p>
+                <p className="chat-text">{msg.text}</p>
+              </div>
+            )
+          })
+        ) : (
+          <p className="no-messages">
+            No messages yet. Start the conversation!
+          </p>
+        )}
       </div>
       <div className="chat-input">
         <input
